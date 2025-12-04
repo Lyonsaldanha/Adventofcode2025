@@ -12,15 +12,15 @@ with open(text_file,"r") as f:
 
 def find_numbers(x):
     left = 0
-    n = len(x) 
     val = 0
-    for right in range(1,n):
+    maxL = float("-inf")
+    for right in range(1,len(x)):
         while left < right:
-            curr = int(x[left] + x[right])
+            maxL = max(maxL,int(x[left]))
+            curr =  maxL * 10 + int(x[right])
             if curr > val:
                 val =  curr
             left += 1
-        left = 0 
     return val
             
 
