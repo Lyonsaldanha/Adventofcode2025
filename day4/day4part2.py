@@ -42,16 +42,40 @@ with open("input.txt") as f:
     
     for line in f:
         inputgrids.append(list(line.strip()))
-        print(line)
-        print(list(line.strip()))
-        
+
+
 
 ans = 0
-visited = set()
-for i in range(len(inputgrids)):
-    for j in range(len(inputgrids[0])):
-        if inputgrids[i][j] == "@" and bfs_grid(inputgrids,(i,j)):
-            ans += 1
-            visited.add((i,j))
-            
-print(ans)
+
+def helper(inputgrids):
+    ans = 0
+    visited = set()
+    for i in range(len(inputgrids)):
+        for j in range(len(inputgrids[0])):
+            if inputgrids[i][j] == "@" and bfs_grid(inputgrids,(i,j)):
+                ans += 1
+                visited.add((i,j))
+    return ans,visited
+
+print(helper(inputgrids))
+prev = -1 
+curr = 0
+i = 0
+res = 0
+while True:
+    curr,visited = helper(inputgrids=inputgrids)
+
+    for r,c in visited:
+        inputgrids[r][c] = "."
+    print(curr)
+    res += curr
+    prev = curr
+    curr = -1
+    i += 1
+    if i == 100:
+        break
+print(res)
+
+
+
+
