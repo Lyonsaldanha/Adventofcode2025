@@ -17,55 +17,55 @@ def find_numbers(path,x,index,res):
         find_numbers(path,x,i+1,res)
         path.pop()
 
-def find_numbers_iterative(x):
-    res = []
-    stack = [(0, [])]  # (start_index, current_path)
-
-    while stack:
-        index, path = stack.pop()
-
-        if len(path) == 12:
-            res.append(path)
-            continue
-
-        # Iterate forward and push next states
-        # Reverse range so the leftmost branch is processed first (stack = LIFO)
-        for i in range(len(x) - 1, index - 1, -1):
-            if len(path) + (len(x) - i) < 12:
-                # Not enough elements remaining to reach length 12
-                continue
-            
-            stack.append((i + 1, path + [x[i]]))
-
-    return res
-
 def find_numbers_stack(x):
 
     stack = []
     res = []
-    for i in x:
-        while stack and int(stack[-1]) < int(i):
-            stack.pop()
+    left = 0
+    right = 1
+    while int(x[left]) < int(right):
+        left += 1
+        right += 1
+    print(left)
+    for v in range(left,len(x)):
+        while stack and int(stack[-1]) < int(v):
+            res.append(stack.pop())
         if len(stack) <= 12:
-            stack.append(i)
-        print(stack)
+            stack.append(x[v])
+    print(res)
     return stack
 
-
-def findnumberslide(x):
+def find_numbers(x):
     res = []
+    i = 0
+    required_digits = 12
     left = 0 
-
-    for right in range(11,len(x)):
-        while left != right:
-            curr = list(x[:right+1])
-            temp = curr.pop(left)
-            res.append(curr)
-            print(curr)
+    right = 0
+    maxL = float("-inf")
+    while right < len(x):
+        if int(x[left]) > maxL:
+            maxL = int(x[left])
+            print(maxL)
             left += 1
-        left += 1
+        if (right - left + 1 ) == required_digits:
+            res.append(maxL)
+            left = left + 1 if left < right else left
+            right = right - 1
+            maxL = int(x[left])
+            required_digits -= 1
+        right += 1
+        if i == 1000:
+            break
+        else:
+            i+= 1
+    print("in here")
     return res
 
+def calc(x):
+    cal = 0
+    for i in x:
+        cal = (cal * 10) + i
+    return cal
 
 
 total_output = 0
@@ -73,10 +73,12 @@ total_output = 0
 for line in inputlines:
     path = []
     res = []
-    res = find_numbers_stack("234234234234278")
+    res = find_numbers("811111111111119")
     print(res)
-    total_output += 1
+    break
+    val = calc(res)
+    total_output += val
     break
 
-print(find_numbers_heap(line))
+
 print(total_output)
