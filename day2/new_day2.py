@@ -40,8 +40,6 @@ for i in range(1,100000):
         if curr not in stored:
             stored.add(curr)
 
-print(stored) 
-
 res = 0
 for x,y in ranges:
     x = int(x)

@@ -9,8 +9,8 @@ with open(text_file,"r") as f:
 
 
 def largest_12_digit(s):
-    k = 12                            # we need exactly 12 digits chosen
-    remove = len(s) - k               # how many digits we are allowed to drop
+    k = 12                          
+    remove = len(s) - k               
     stack = []
     
     for ch in s:
@@ -19,14 +19,9 @@ def largest_12_digit(s):
             remove -= 1
         stack.append(ch)
 
-    # If we still have extra digits, truncate
     return ''.join(stack[:k])
 
-def calc(x):
-    cal = 0
-    for i in x:
-        cal = (cal * 10) + i
-    return cal
+
 
 total_output = 0
 for line in inputlines:
