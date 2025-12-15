@@ -7,7 +7,7 @@ with open("input.txt") as f:
 
     for line in f:
         inputs.append(list(line.strip()))
-
+nlen = len
 def go_down(i,j,matrix):
     count = 0
     found = False
